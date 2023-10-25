@@ -46,7 +46,7 @@
                 const qr = new QRious({
                     element: qrCanvas,
                     value: url,
-                    size: 250, // Tamaño del código QR
+                    size: 200, // Tamaño del código QR
                     backgroundAlpha: 0.9,
                     foreground: 'black', // Color de los datos del código QR
                 });
@@ -60,11 +60,13 @@
                         logoImage.src = e.target.result;
                         logoImage.onload = function() {
                             const context = qrCanvas.getContext('2d');
-                            const logoSize = qrCanvas.width / 4; // Ajusta el tamaño del logotipo
+                            const logoSize = qrCanvas.width / 6; // Ajusta el tamaño del logotipo
                             const logoX = (qrCanvas.width - logoSize) / 2;
                             const logoY = (qrCanvas.height - logoSize) / 2;
 
                             // Agregar el logotipo
+                            context.fillStyle = "white"; // Establece el fondo en blanco
+                            context.fillRect(logoX, logoY, logoSize, logoSize); // Crea un cuadro blanco para el logotipo
                             context.drawImage(logoImage, logoX, logoY, logoSize, logoSize);
                         };
                     };
@@ -78,3 +80,4 @@
     </script>
 </body>
 </html>
+
