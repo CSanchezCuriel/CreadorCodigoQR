@@ -42,10 +42,11 @@
             const qrImage = document.getElementById("qr-image");
             
             if (url) {
+                // Aumenta el tamaño del canvas para dar espacio al logotipo
                 const qr = new QRious({
                     element: qrCanvas,
                     value: url,
-                    size: 200, // Tamaño del código QR
+                    size: 250, // Tamaño del código QR
                     backgroundAlpha: 0.9,
                     foreground: 'black', // Color de los datos del código QR
                 });
@@ -58,23 +59,13 @@
                         const logoImage = new Image();
                         logoImage.src = e.target.result;
                         logoImage.onload = function() {
-                            const canvas = document.createElement('canvas');
-                            const context = canvas.getContext('2d');
-                            canvas.width = qrCanvas.width;
-                            canvas.height = qrCanvas.height;
-
-                            // Dibuja el código QR en el lienzo
-                            context.drawImage(qrCanvas, 0, 0, qrCanvas.width, qrCanvas.height);
-
-                            // Añade el logotipo
-                            const logoSize = qrCanvas.width / 3;
+                            const context = qrCanvas.getContext('2d');
+                            const logoSize = qrCanvas.width / 4; // Ajusta el tamaño del logotipo
                             const logoX = (qrCanvas.width - logoSize) / 2;
                             const logoY = (qrCanvas.height - logoSize) / 2;
-                            context.drawImage(logoImage, logoX, logoY, logoSize, logoSize);
 
-                            // Muestra el código QR con el logotipo
-                            qrImage.src = canvas.toDataURL('image/png');
-                            qrImage.classList.remove("hidden");
+                            // Agregar el logotipo
+                            context.drawImage(logoImage, logoX, logoY, logoSize, logoSize);
                         };
                     };
                     reader.readAsDataURL(logoInput.files[0]);
