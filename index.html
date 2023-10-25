@@ -1,23 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Códigos QR Personalizados</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        .hidden {
-            display: none;
-        }
-    </style>
+    <title>Generador de Códigos QR</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
+    
 <body>
     <div class="container">
         <h1>Generador de Códigos QR</h1>
@@ -26,58 +16,12 @@
             <input type="text" id="url" placeholder="https://www.ejemplo.com">
             <label for="logo">Selecciona un logotipo:</label>
             <input type="file" id="logo" accept="image/*">
-            <button type="button" onclick="generarCodigoQR()">Generar Código QR</button>
+            <button type="button" onclick="">Generar Código QR</button>
         </form>
         <canvas id="codigo-qr" class="hidden"></canvas>
         <img id="qr-image" class="hidden" alt="Código QR">
     </div>
-    
-    <script src="./js/qrious/qrious.min.js"></script>
-
-    <script>
-        function generarCodigoQR() {
-            const url = document.getElementById("url").value;
-            const logoInput = document.getElementById("logo");
-            const qrCanvas = document.getElementById("codigo-qr");
-            const qrImage = document.getElementById("qr-image");
-            
-            if (url) {
-                // Aumenta el tamaño del canvas para dar espacio al logotipo
-                const qr = new QRious({
-                    element: qrCanvas,
-                    value: url,
-                    size: 200, // Tamaño del código QR
-                    backgroundAlpha: 0.9,
-                    foreground: 'black', // Color de los datos del código QR
-                });
-
-                qrCanvas.classList.remove("hidden");
-
-                if (logoInput.files[0]) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const logoImage = new Image();
-                        logoImage.src = e.target.result;
-                        logoImage.onload = function() {
-                            const context = qrCanvas.getContext('2d');
-                            const logoSize = qrCanvas.width / 6; // Ajusta el tamaño del logotipo
-                            const logoX = (qrCanvas.width - logoSize) / 2;
-                            const logoY = (qrCanvas.height - logoSize) / 2;
-
-                            // Agregar el logotipo
-                            context.fillStyle = "white"; // Establece el fondo en blanco
-                            context.fillRect(logoX, logoY, logoSize, logoSize); // Crea un cuadro blanco para el logotipo
-                            context.drawImage(logoImage, logoX, logoY, logoSize, logoSize);
-                        };
-                    };
-                    reader.readAsDataURL(logoInput.files[0]);
-                } else {
-                    qrImage.src = qrCanvas.toDataURL('image/png');
-                    qrImage.classList.remove("hidden");
-                }
-            }
-        }
-    </script>
+    <script src="./js/script.js"></script>
 </body>
 </html>
 
